@@ -25,6 +25,7 @@ func main() {
 		}
 		//target := ips
 		log.Printf("OK: %v.\n", r.Host)
+		w.WriteHeader(302)
 		w.Header().Add("Location", txt[0])
 	})
 	log.Println("Starting server at port 8080")
