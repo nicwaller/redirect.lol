@@ -9,8 +9,6 @@ import (
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Server", "redirect.lol")
-
 		// gotta use TXT instead of CNAME so that people can specify the protocol
 
 		queryHost := "_redirect." + r.Host
