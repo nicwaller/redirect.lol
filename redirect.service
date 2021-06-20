@@ -1,0 +1,10 @@
+[Unit]
+Description=Redirect.lol
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3600
+User=root
+ExecStart=/usr/bin/go run /root/redirect.lol/serve.go
