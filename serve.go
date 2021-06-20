@@ -23,8 +23,8 @@ func main() {
 		}
 		//target := ips
 		log.Printf("OK: %v.\n", r.Host)
-		w.WriteHeader(302)
 		w.Header().Add("Location", txt[0])
+		w.WriteHeader(302)
 	})
 	log.Println("Starting server at port 8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
