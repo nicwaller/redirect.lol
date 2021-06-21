@@ -39,6 +39,26 @@ redirect.lol-->DNS:lookup TXT _redirect.foo.net
 DNS-->redirect.lol:https://en.wikipedia.org/wiki/Foo
 redirect.lol->Visitor:HTTP 302 Found\nLocation: https://en.wikipedia.org/wiki/Foo">
 
+<h2>What about SSL/TLS?</h2>
+
+Using the <a href="https://caddyserver.com/docs/automatic-https#on-demand-tls">on-demand TLS</a> feature of
+<a href="https://caddyserver.com">Caddy webserver</a> it's possible for redirect.lol to serve HTTP redirects with a signed x509 certificate.
+
+<img src="flow-https.svg" alt="title redirect.lol (HTTPS)
+Visitor->DNS:lookup foo.net
+DNS->Visitor:CNAME redirect.lol
+Visitor->redirect.lol:TLS+SNI servername=foo.net
+redirect.lol->ACME:request cert for foo.net
+ACME-->redirect.lol:challenge request
+redirect.lol-->ACME:challenge response
+ACME->redirect.lol:signed x509 certificate
+redirect.lol->Visitor:TLS header (with x509 certificate for foo.net)
+Visitor->redirect.lol:GET / HTTP/1.1\nHost: foo.net
+redirect.lol-->DNS:lookup TXT _redirect.foo.net
+DNS-->redirect.lol:https://en.wikipedia.org/wiki/Foo
+redirect.lol->Visitor:HTTP 302 Found\nLocation: https://en.wikipedia.org/wiki/Foo
+">
+
 <h2>Troubleshooting</h2>
 
 What happens if this DNS record is missing? Example: <a href="http://bad.redirect.lol">http://bad.redirect.lol</a>
@@ -49,6 +69,7 @@ You'll see an error something like this:
     To enable redirect, create a DNS TXT record at _redirect.bad.redirect.lol.
     No response or failed TXT lookup for _redirect.bad.redirect.lol
 </code></pre>
+
 
 </body>
 </html>
