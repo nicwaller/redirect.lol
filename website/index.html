@@ -2,11 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>redirect.lol</title>
+    <style type="text/css">
+        body {
+            max-width: 40em;
+            font-family: Verdana, sans-serif;
+        }
+    </style>
 </head>
 <body>
 
 <h1>About redirect.lol</h1>
+
+Create HTTP redirects using only DNS records.
+
+<h2>Why?</h2>
+
+Sometimes you have a domain or subdomain and you want visitors to get redirected somewhere else.
+First-time webmasters often
+<a href="https://stackoverflow.com/q/9444055/190298">assume</a>
+this is a simple matter of setting up some DNS records.
+However, DNS doesn't have a "redirect" record type because DNS knows nothing about HTTP --
+it operates at a lower level of the network stack!
+
+<h2>How?</h2>
+
+redirect.lol is a very simple webserver that only serves redirects.
+When it receives a request, it performs a DNS lookup to decide where the visitor should be redirected.
+
+<img src="flow-simple.svg" alt="title redirect.lol (simple HTTP)
+Visitor->DNS:lookup foo.net
+DNS->Visitor:CNAME redirect.lol
+Visitor->redirect.lol:GET / HTTP/1.1\nHost: foo.net
+redirect.lol-->DNS:lookup TXT _redirect.foo.net
+DNS-->redirect.lol:https://en.wikipedia.org/wiki/Foo
+redirect.lol->Visitor:HTTP 302 Found\nLocation: https://en.wikipedia.org/wiki/Foo">
 
 </body>
 </html>
