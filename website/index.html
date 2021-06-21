@@ -39,5 +39,16 @@ redirect.lol-->DNS:lookup TXT _redirect.foo.net
 DNS-->redirect.lol:https://en.wikipedia.org/wiki/Foo
 redirect.lol->Visitor:HTTP 302 Found\nLocation: https://en.wikipedia.org/wiki/Foo">
 
+<h2>Troubleshooting</h2>
+
+What happens if this DNS record is missing? Example: <a href="http://bad.redirect.lol">http://bad.redirect.lol</a>
+
+You'll see an error something like this:
+
+<pre><code>
+    To enable redirect, create a DNS TXT record at _redirect.bad.redirect.lol.
+    No response or failed TXT lookup for _redirect.bad.redirect.lol
+</code></pre>
+
 </body>
 </html>
